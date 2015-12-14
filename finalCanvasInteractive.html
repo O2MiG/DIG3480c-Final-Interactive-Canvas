@@ -14,6 +14,11 @@ var timeOfDay = time[Math.floor(Math.random() * time.length)];
 var textChosen;
 var textChosenTwo;
 var timerCounter;
+var keyAPressed = false;
+var keySPressed = false;
+var keyDPressed = false;
+var keyFPressed = false;
+
 function Shape(x, y, color) {
 this.x = x;
 this.y = y;
@@ -31,6 +36,10 @@ window.addEventListener('orientationchange', resizeCanvas, false);
 makeText();
 makeTextTwo();
 resizeCanvas();
+
+document.addEventListener('keydown', keyDownHandler, false);
+document.addEventListener('keyup', keyUpHandler, false);
+
 canvas.onclick = function(event) {
 	handleClick(event.clientX, event.clientY);
 };
@@ -38,6 +47,41 @@ timer = setInterval(resizeCanvas, 40);
 for (var i = 0; i < 50; i++) {
 	newShape();
 }
+}
+function keyDownHandler(e) {
+	if(e.keyCode == 65) {
+		keyAPressed = true;
+		newShape();
+	}
+	else if(e.keyCode == 83) {
+		keySPressed = true;
+		makeText();
+		drawText();
+	}
+	else if(e.keyCode == 68) {
+		keyDPressed = true;
+		timeOfDay = 'day';
+		fillBackgroundDay();
+	}
+	else if(e.keyCode == 70) {
+		keyFPressed = true;
+		timeOfDay = 'night';
+		fillBackgroundNight();
+	}
+}
+function keyUpHandler(e) {
+	if(e.keyCode == 65) {
+		keyAPressed = false;
+	}
+	else if(e.keyCode == 83) {
+		keySPressed = false;
+	}
+	else if(e.keyCode == 68) {
+		keyDPressed = false;
+	}
+	else if(e.keyCode == 70) {
+		keyFPressed = false;
+	}
 }
 
 function handleClick(x, y){
@@ -50,13 +94,11 @@ function handleClick(x, y){
 		}
 	}
 	if(!found){
-		var colors = ['DarkGray', 'Beige', 'CornflowerBlue', 'DarkCyan', 'SkyBlue', 'Tan', 'SandyBrown', 'SlateBlue', 'Green', 'Red'];
-		var color = colors[Math.floor(Math.random()*colors.length)];
-		shapes.push(new Shape(x, y, color));
+		//	for(var i = 0; i < shapes.length; i++){
+	//newShape(shapes[i]);
+//	}
 	}
-	for(var i = 0; i < shapes.length; i++){
-		drawCircle(shapes[i]);
-	}
+
 }
 
 function newShape() {
@@ -140,7 +182,7 @@ function drawText() {
 	//context.fillStyle = 'DarkSlateGray';
 	context.font = 'bold 1.5em sans-serif';
 	context.textAlign = 'right';
-	context.fillText(textChosen, canvas.width-140, canvas.height-240);
+	context.fillText(textChosen, canvas.width-140, canvas.height/2);
 }
 function makeTextTwo() {
 	textChosenTwo = 'Welcome to the Digital Age';
@@ -155,7 +197,7 @@ function drawTextTwo() {
 	//context.fillStyle = 'DarkSlateGray';
 	context.font = 'bold 1.5em sans-serif';
 	context.textAlign = 'right';
-	context.fillText(textChosenTwo, canvas.width-120, canvas.height-270);
+	context.fillText(textChosenTwo, canvas.width-120, canvas.height/2.5);
 }
 function fillBackgroundNight() {
 	  context.rect(0, 0, canvas.width, canvas.height);
@@ -179,7 +221,7 @@ function fillBackgroundDay() {
 }
 function resizeCanvas() {
 canvas.width = window.innerWidth-20;
-canvas.height = window.innerHeight-20;
+canvas.height = window.innerHeight-180;
 if (timeOfDay == 'day'){
 	fillBackgroundDay();
 }		
@@ -215,7 +257,33 @@ return (degrees * Math.PI)/180;
 window.onload = init;
 </script>
 </head>
+<style>
+body {
+    background-color: #81BEF7;
+}
+
+h1 {
+    color: #084B8A;
+    text-align: center;
+	font-family: "Arial";
+    font-size: 30px;
+}
+
+h2 {
+    color: #0B3861;
+    text-align: center;
+	font-family: "Arial";
+    font-size: 17px;
+}
+</style>
 <body>
-<canvas id='canvas' width=500 height=300></canvas>
+<h1>The Generator...</h1>
+<canvas id='canvas' width=500 height=500></canvas>
+<h2>The heartbeat of the Earth. Creativity...your thoughts, ideas, your voice. Anything you can think of, you can do artistically. Believe...because this is the digital age. The controls are below...</h2>
+<h2>Left mouse button: Add/Remove shapes</h2>
+<h2>A Key: Add Shapes</h2>
+<h2>S Key: Generate New Text</h2>
+<h2>D Key: Day Background</h2>
+<h2>F Key: Night Background</h2>
 </body>
 </html>
