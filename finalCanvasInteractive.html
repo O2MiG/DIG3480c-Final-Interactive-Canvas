@@ -35,15 +35,35 @@ canvas.onclick = function(event) {
 	handleClick(event.clientX, event.clientY);
 };
 timer = setInterval(resizeCanvas, 40);
-for (var i = 0; i < 70; i++) {
+for (var i = 0; i < 50; i++) {
 	newShape();
 }
 }
+
+function handleClick(x, y){
+	var found = false;
+	for(var i = 0; i < shapes.length; i++){
+		d = Math.sqrt((shapes[i].x - x) * (shapes[i].x - x) + (shapes[i].y - y) * (shapes[i].y - y));
+		if(d <= 50){
+			shapes.splice(i, 1);
+			found = true;
+		}
+	}
+	if(!found){
+		var colors = ['DarkGray', 'Beige', 'CornflowerBlue', 'DarkCyan', 'SkyBlue', 'Tan', 'SandyBrown', 'SlateBlue', 'Green', 'Red'];
+		var color = colors[Math.floor(Math.random()*colors.length)];
+		shapes.push(new Shape(x, y, color));
+	}
+	for(var i = 0; i < shapes.length; i++){
+		drawCircle(shapes[i]);
+	}
+}
+
 function newShape() {
 var x = Math.random() * canvas.width;
 var y = Math.random() * canvas.height;
 var colors = ["red", "green", "blue", "orange", "purple", "yellow",
-					'black', 'green', 'DarkGray', 'Beige', 'CornflowerBlue', 'DarkCyan', 
+					'black', 'DarkGray', 'Beige', 'CornflowerBlue', 'DarkCyan', 
 					'SkyBlue', 'Tan', 'SandyBrown', 'SlateBlue'];
 var color = colors[Math.floor(Math.random()*colors.length)];
 shapes.push(new Shape(x, y, color));
@@ -196,6 +216,6 @@ window.onload = init;
 </script>
 </head>
 <body>
-<canvas id='canvas' width=500 height=500></canvas>
+<canvas id='canvas' width=500 height=300></canvas>
 </body>
 </html>
