@@ -43,7 +43,7 @@ document.addEventListener('keyup', keyUpHandler, false);
 canvas.onclick = function(event) {
 	handleClick(event.clientX, event.clientY);
 };
-timer = setInterval(resizeCanvas, 40);
+timer = setInterval(resizeCanvas, 30);
 for (var i = 0; i < 50; i++) {
 	newShape();
 }
@@ -280,7 +280,7 @@ h2 {
 <h1>The Generator...</h1>
 <canvas id='canvas' width=500 height=500></canvas>
 <h2>The heartbeat of the Earth. Creativity...your thoughts, ideas, your voice. Anything you can think of, you can do artistically. Believe...because this is the digital age. The controls are below...</h2>
-<h2>Left mouse button: Add/Remove shapes</h2>
+<h2>Left mouse button: Remove shapes</h2>
 <h2>A Key: Add Shapes</h2>
 <h2>S Key: Generate New Text</h2>
 <h2>D Key: Day Background</h2>
